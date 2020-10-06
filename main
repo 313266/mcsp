@@ -1,0 +1,80 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h> 
+#include <fstream>
+#include <Urlmon.h>
+#pragma comment(lib,"urlmon.lib")
+
+using namespace std;
+
+int main()
+{
+	int a;
+	cout <<"download=1  start=2\n";
+	cin >> a ;
+	if( a ==2)
+	{
+	  
+	
+	
+	char name[32];
+	char x[8];
+	char data[64];
+
+	cout <<"name\n";
+	cin >> name;
+	cout<< name <<endl;
+	system("CLS");
+	
+	cout<<"biggest memory\n";
+	cin>> x ;
+	ofstream outfile;
+    outfile.open("start.bat",ios::out | ios::trunc );
+    outfile<< "java -Xmx"<< x <<"M -Xms16M -jar "<< name <<".jar"<<endl<<"pause";
+     
+    outfile.close();
+    
+    system("start start.bat");
+    
+    ifstream infile; 
+    infile.open("start.bat"); 
+    
+    infile>> data ; 
+    cout<< data<<"\n" ;
+	printf("name is %s",data);
+	
+	infile.close();
+    }
+    
+    if ( a ==1)
+    {
+    	char edition[16];
+    	cout<<"server edition\n";
+    	cin>>edition;
+		ofstream outfile;
+        outfile.open("$cache.dat",ios::out | ios::trunc );
+        outfile<<"https://cdn.getbukkit.org/craftbukkit/craftbukkit-"<<edition<<".jar"<<endl;
+        outfile<<edition<<".jar";
+        outfile.close();
+        
+        char url[64];
+        char fe[8];
+        ifstream infile;
+        infile.open("$cache.dat");
+        infile>> url ;
+        infile>> fe ;
+        
+    	
+    	HRESULT ret=URLDownloadToFile(NULL,url,fe,0,NULL);
+    	if (S_OK ==ret)
+    	{
+    	  cout<<"finish!";
+		  MessageBox(NULL,"finish","message from 31",MB_OK);
+		} 
+		else
+		{
+			cout<<"unscuess";
+		}
+        
+    }
+}
