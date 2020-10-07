@@ -1,7 +1,6 @@
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h> 
-#include <fstream>
+#include <string>
+#include <windows.h> 
 #include <Urlmon.h>
 #pragma comment(lib,"urlmon.lib")
 
@@ -17,64 +16,56 @@ int main()
 	  
 	
 	
-	char name[32];
-	char x[8];
-	char data[64];
+	string name;
+	string x;
+	char namee[8];
+	char xe[8];
 
-	cout <<"name\n";
-	cin >> name;
-	cout<< name <<endl;
+	cout <<"edition\n";
+    cin >>namee;
+	cout<< namee <<endl;
 	system("CLS");
 	
 	cout<<"biggest memory\n";
-	cin>> x ;
-	ofstream outfile;
-    outfile.open("start.bat",ios::out | ios::trunc );
-    outfile<< "java -Xmx"<< x <<"M -Xms16M -jar "<< name <<".jar"<<endl<<"pause";
-     
-    outfile.close();
+	cin>> xe ;
+	x = xe;
+	name = namee;
+	string fulljava;
+	fulljava = "java -Xmx"+ x +"M -jar "+ name +".jar";
     
-    system("start start.bat");
+	char java[64];
+    strcpy(java,fulljava.c_str());
     
-    ifstream infile; 
-    infile.open("start.bat"); 
+    system( java );
     
-    infile>> data ; 
-    cout<< data<<"\n" ;
-	printf("name is %s",data);
-	
-	infile.close();
     }
     
     if ( a ==1)
     {
     	char edition[16];
+    	string edition2;
+    	
     	cout<<"server edition\n";
     	cin>>edition;
-		ofstream outfile;
-        outfile.open("$cache.dat",ios::out | ios::trunc );
-        outfile<<"https://cdn.getbukkit.org/craftbukkit/craftbukkit-"<<edition<<".jar"<<endl;
-        outfile<<edition<<".jar";
-        outfile.close();
-        
-        char url[64];
-        char fe[8];
-        ifstream infile;
-        infile.open("$cache.dat");
-        infile>> url ;
-        infile>> fe ;
-        
+    	edition2 = edition;
     	
-    	HRESULT ret=URLDownloadToFile(NULL,url,fe,0,NULL);
+    	string url;
+    	url ="https://cdn.getbukkit.org/craftbukkit/craftbukkit-"+ edition2 +".jar"; 
+    	string fe;
+    	fe = edition2 +".jar";
+		
+        
+        char url2[64];
+        char fe2[8];
+        strcpy(url2,url.c_str());
+        strcpy(fe2,fe.c_str());
+    	
+    	HRESULT ret= URLDownloadToFileA(NULL,url2,fe2,0,NULL);
     	if (S_OK ==ret)
     	{
     	  cout<<"finish!";
 		  MessageBox(NULL,"finish","message from 31",MB_OK);
 		} 
-		else
-		{
-			cout<<"unscuess";
-		}
-        
+		
     }
 }
